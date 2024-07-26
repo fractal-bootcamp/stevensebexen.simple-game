@@ -1,6 +1,8 @@
 extends Node2D
 
-@export var moveSpeed = 300
+signal obstacle_touched
+
+@export var move_speed = 600
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,4 +21,12 @@ func _process(delta):
 
 	for action in ACTIONS:
 		if Input.is_action_pressed(action):
-			position += ACTIONS[action] * moveSpeed * delta
+			position += ACTIONS[action] * move_speed * delta
+			var half_size = $CollisionShape2D.shape.size / 2
+			var viewport_size = get_viewport().get_visible_rect().size
+			position = position.clamp(half_size, viewport_size - half_size)
+
+
+func _on_area_entered(area):
+	if area.is_in_group('obstacle'):
+		obstacle_touched.emit()
