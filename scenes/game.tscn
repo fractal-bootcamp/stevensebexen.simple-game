@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://c752kqnnylkhq"]
+[gd_scene load_steps=4 format=3 uid="uid://c752kqnnylkhq"]
 
 [ext_resource type="PackedScene" uid="uid://ds8ytinf1tx4j" path="res://scenes/player/player.tscn" id="1_pxd3q"]
+[ext_resource type="PackedScene" uid="uid://dvc1cfpror8ia" path="res://scenes/obstacle/obstacle_spawner.tscn" id="2_imxji"]
+[ext_resource type="PackedScene" uid="uid://cvdkm48f1022w" path="res://scenes/score_tracker/score_tracker.tscn" id="3_5ohqj"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_pxd3q")]
 position = Vector2(640, 360)
+
+[node name="ObstacleSpawner" parent="." instance=ExtResource("2_imxji")]
+
+[node name="ScoreTracker" parent="." instance=ExtResource("3_5ohqj")]
+
+[connection signal="obstacle_touched" from="Player" to="ScoreTracker" method="_on_player_obstacle_touched"]
+[connection signal="obstacle_spawned" from="ObstacleSpawner" to="ScoreTracker" method="_on_obstacle_spawner_obstacle_spawned"]

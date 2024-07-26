@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds8ytinf1tx4j"]
+[gd_scene load_steps=3 format=3 uid="uid://ds8ytinf1tx4j"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.gd" id="1_3337s"]
 
-[node name="Player" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gsa4"]
+size = Vector2(40, 40)
+
+[node name="Player" type="Area2D"]
 script = ExtResource("1_3337s")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -17,3 +20,9 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_5gsa4")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
